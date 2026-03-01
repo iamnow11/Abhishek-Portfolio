@@ -1,0 +1,191 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tech: string[];
+  github?: string;
+  live?: string;
+  stars?: number;
+  index: number;
+}
+
+const { title, description, tech, github, live, stars, index } = Astro.props;
+---
+
+<div class="project slide-up" style={`animation-delay: ${index * 0.08}s`}>
+  <div class="project-content">
+    <div class="project-info">
+      <div class="project-meta">
+        <span class="project-tech">{tech.join(" / ")}</span>
+      </div>
+
+      <h3>{title}</h3>
+
+      <p class="project-description">{description}</p>
+
+      <div class="project-links">
+        {
+          github && (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-link"
+            >
+              source
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+          )
+        }
+        {
+          live && (
+            <a
+              href={live}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-link"
+            >
+              live
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+          )
+        }
+        {
+          github && (
+            <span
+              class="star-badge"
+              aria-label={`${stars ?? 0} stars`}
+              data-github={github}
+              data-stars={stars ?? 0}
+              data-role="star-badge"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 .587l3.668 7.431L23.4 9.75l-5.7 5.556L19.335 24 12 19.897 4.665 24l1.634-8.694L.6 9.75l7.732-1.732z" />
+              </svg>
+              <span class="star-count">{stars ?? 0}</span>
+            </span>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .project {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    transition: var(--transition-smooth);
+  }
+
+  .project:last-child {
+    border-bottom: none;
+  }
+
+  .project:hover {
+    transform: translateX(4px);
+  }
+
+  .project-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .project-info {
+    padding: 0;
+  }
+
+  .project-info h3 {
+    font-size: var(--font-size-x-large);
+    font-weight: 600;
+    margin: 0 0 0.35rem 0;
+    color: var(--primary-text);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .project-meta {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-tech {
+    background: transparent;
+    color: var(--tertiary-text);
+    padding: 0;
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: none;
+    font-family: var(--font-mono);
+  }
+
+  .project-description {
+    color: var(--secondary-text);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    font-size: var(--font-size-small);
+    font-weight: 400;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--secondary-text);
+    text-decoration: none !important;
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    font-family: var(--font-mono);
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    transition: var(--transition-smooth);
+  }
+
+  .project-link:hover {
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
+    text-decoration: none !important;
+    opacity: 1;
+  }
+
+  .star-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--tertiary-text);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    font-family: var(--font-mono);
+  }
+
+  .star-badge svg {
+    width: 0.65rem;
+    height: 0.65rem;
+    fill: currentColor;
+  }
+
+  @media (max-width: 768px) {
+    .project {
+      padding: 1.25rem 0;
+    }
+  }
+</style>

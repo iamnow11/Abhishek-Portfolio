@@ -1,0 +1,178 @@
+---
+import NavBar from "../components/NavBar.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Abhishek Shah | Senior Frontend Engineer",
+  description = "Abhishek Shah is a Senior Frontend Engineer specializing in Angular (v16–19), React 18, TypeScript, NgRx, and enterprise-grade scalable web applications.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Abhishek Shah" />
+    <meta
+      name="keywords"
+      content="Abhishek Shah, Senior Frontend Engineer, Angular, React, NgRx, UX architecture"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="generator" content={Astro.generator} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="AarusPortfolio" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:creator" content="@iamnow11" />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Abhishek Shah",
+        url: "https://github.com/iamnow11",
+        sameAs: [
+          "https://github.com/iamnow11",
+          "https://www.linkedin.com/in/iamnow/",
+        ],
+        jobTitle: "Senior Frontend Engineer",
+        description: description,
+        knowsAbout: [
+          "Angular",
+          "React",
+          "TypeScript",
+          "NgRx",
+          "Redux",
+          "Frontend Architecture",
+          "Performance Optimization",
+          "Enterprise Systems",
+        ],
+      })}
+    />
+    <link
+      rel="preload"
+      href="/fonts/SpaceGrotesk.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <style is:global>
+      @import "../styles/global.css";
+    </style>
+  </head>
+  <body>
+    <div class="reading-progress" id="reading-progress"></div>
+    <NavBar />
+
+    <slot />
+
+    <footer class="footer fade-in">
+      <div class="footer-inner">
+        <span class="footer-left">&copy; 2026 Abhishek Shah</span>
+        <!-- <span class="footer-right">Built with Astro</span> -->
+      </div>
+    </footer>
+
+    <script>
+      const theme = localStorage.getItem("theme") || "dark";
+      document.documentElement.setAttribute("data-theme", theme);
+
+      const updateProgress = () => {
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / scrollHeight) * 100;
+        const progressBar = document.getElementById("reading-progress");
+        if (progressBar) {
+          progressBar.style.width = `${progress}%`;
+        }
+      };
+
+      window.addEventListener("scroll", updateProgress, { passive: true });
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          { threshold: 0.1 },
+        );
+
+        document.addEventListener("DOMContentLoaded", () => {
+          document.querySelectorAll(".fade-in, .slide-up").forEach((el) => {
+            observer.observe(el);
+          });
+        });
+      }
+
+      // Console easter egg
+      console.log(
+        "%c> abhishek.init()",
+        "color: #fff; font-family: monospace; font-size: 14px; font-weight: bold;"
+      );
+      console.log(
+        "%cSenior Frontend Engineer. Focused on performance optimization and scalable enterprise platforms.",
+        "color: #888; font-family: monospace; font-size: 11px;"
+      );
+      console.log(
+        "%c\nStack: Angular, React, TypeScript, NgRx.\n\nLooking at the source? Good instinct.\nhttps://github.com/iamnow11",
+        "color: #666; font-family: monospace; font-size: 11px;"
+      );
+    </script>
+  </body>
+</html>
+
+<style>
+  .footer {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .footer-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left,
+  .footer-right {
+    color: var(--tertiary-text);
+    font-size: var(--font-size-xs);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      margin-top: 2rem;
+      padding: 1.5rem 0;
+    }
+  }
+</style>
