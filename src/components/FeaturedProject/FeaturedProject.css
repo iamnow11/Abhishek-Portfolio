@@ -11,8 +11,70 @@
   position: relative;
 }
 
+.flagship::before,
+.flagship::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.flagship::before {
+  inset: -1px;
+  background: conic-gradient(
+    from var(--gradient-angle, 0deg),
+    transparent 0%,
+    transparent 25%,
+    rgba(136, 136, 136, 0.6) 40%,
+    rgba(200, 200, 200, 0.9) 50%,
+    rgba(136, 136, 136, 0.6) 60%,
+    transparent 75%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.flagship::after {
+  inset: 1px;
+  background: var(--glass-bg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.flagship > * {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme='dark'] .flagship::before {
+  background: conic-gradient(
+    from var(--gradient-angle, 0deg),
+    transparent 0%,
+    transparent 25%,
+    rgba(255, 255, 255, 0.1) 38%,
+    rgba(255, 255, 255, 0.4) 46%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.4) 54%,
+    rgba(255, 255, 255, 0.1) 62%,
+    transparent 75%,
+    transparent 100%
+  );
+}
+
+.flagship:hover::before,
+.flagship:hover::after {
+  opacity: 1;
+}
+
+.flagship:hover::before {
+  animation: gradientRotate 8s linear infinite;
+}
+
 .flagship:hover {
-  border-color: var(--accent-color);
+  border-color: transparent;
   box-shadow: var(--shadow-raised);
   transform: translateY(-2px);
 }

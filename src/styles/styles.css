@@ -143,6 +143,23 @@ input, textarea, select {
 }
 
 /* ==========================================================================
+   Animated Gradient Border
+   Uses @property for GPU-accelerated conic-gradient rotation.
+   ========================================================================== */
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes gradientRotate {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
+/* ==========================================================================
    Reduced Motion
    ========================================================================== */
 
