@@ -1,5 +1,6 @@
 ---
-import NavBar from "../components/NavBar.astro";
+import './Layout.css';
+import NavBar from "../components/NavBar/NavBar.astro";
 
 interface Props {
   title?: string;
@@ -75,7 +76,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       crossorigin
     />
     <style is:global>
-      @import "../styles/global.css";
+      @import "../styles/styles.css";
     </style>
   </head>
   <body>
@@ -92,87 +93,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </footer>
 
     <script>
-      const theme = localStorage.getItem("theme") || "dark";
-      document.documentElement.setAttribute("data-theme", theme);
-
-      const updateProgress = () => {
-        const scrollTop =
-          window.pageYOffset || document.documentElement.scrollTop;
-        const scrollHeight =
-          document.documentElement.scrollHeight - window.innerHeight;
-        const progress = (scrollTop / scrollHeight) * 100;
-        const progressBar = document.getElementById("reading-progress");
-        if (progressBar) {
-          progressBar.style.width = `${progress}%`;
-        }
-      };
-
-      window.addEventListener("scroll", updateProgress, { passive: true });
-
-      if ("IntersectionObserver" in window) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-              }
-            });
-          },
-          { threshold: 0.1 },
-        );
-
-        document.addEventListener("DOMContentLoaded", () => {
-          document.querySelectorAll(".fade-in, .slide-up").forEach((el) => {
-            observer.observe(el);
-          });
-        });
-      }
-
-      // Console easter egg
-      console.log(
-        "%c> abhishek.init()",
-        "color: #fff; font-family: monospace; font-size: 14px; font-weight: bold;"
-      );
-      console.log(
-        "%cSenior Frontend Engineer. Focused on performance optimization and scalable enterprise platforms.",
-        "color: #888; font-family: monospace; font-size: 11px;"
-      );
-      console.log(
-        "%c\nStack: Angular, React, TypeScript, NgRx.\n\nLooking at the source? Good instinct.\nhttps://github.com/iamnow11",
-        "color: #666; font-family: monospace; font-size: 11px;"
-      );
+      import "./Layout.ts";
     </script>
   </body>
 </html>
-
-<style>
-  .footer {
-    margin-top: 3rem;
-    padding: 2rem 0;
-    border-top: 1px solid var(--border-color);
-  }
-
-  .footer-inner {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .footer-left,
-  .footer-right {
-    color: var(--tertiary-text);
-    font-size: var(--font-size-xs);
-    font-weight: 400;
-    letter-spacing: 0.02em;
-  }
-
-  @media (max-width: 768px) {
-    .footer {
-      margin-top: 2rem;
-      padding: 1.5rem 0;
-    }
-  }
-</style>

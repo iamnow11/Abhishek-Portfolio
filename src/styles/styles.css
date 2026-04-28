@@ -1,6 +1,15 @@
+/* ==========================================================================
+   Global Stylesheet – Abhishek Shah Portfolio
+   Import order: variables → fonts → animations → base/reset → utilities
+   ========================================================================== */
+
 @import './variables.css';
-@import './animations.css';
 @import './fonts.css';
+@import './animations.css';
+
+/* ==========================================================================
+   Base / Reset
+   ========================================================================== */
 
 * {
   margin: 0;
@@ -43,13 +52,10 @@ body {
   outline-offset: 0.125rem;
 }
 
-.container {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--container-padding);
-}
+/* ==========================================================================
+   Scrollbar
+   ========================================================================== */
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -64,7 +70,10 @@ body {
   border-radius: 2px;
 }
 
-/* Typography */
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   letter-spacing: -0.03em;
@@ -91,7 +100,25 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-/* Utility classes */
+pre, code, kbd, samp {
+  font-family: var(--font-mono);
+}
+
+input, textarea, select {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* ==========================================================================
+   Shared / Reusable Classes
+   ========================================================================== */
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
 .fade-in {
   opacity: 0;
   animation: fadeIn 0.6s ease forwards;
@@ -115,16 +142,10 @@ button:focus-visible {
   transition: width 0.1s ease-out;
 }
 
-pre, code, kbd, samp {
-  font-family: var(--font-mono);
-}
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
 
-input, textarea, select {
-  user-select: text;
-  -webkit-user-select: text;
-}
-
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

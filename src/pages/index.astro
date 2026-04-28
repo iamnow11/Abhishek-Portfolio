@@ -1,36 +1,126 @@
 ---
+import './_index.css';
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import SectionHeader from "../components/SectionHeader.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import FlagshipProject from "../components/FlagshipProject.astro";
-import ContactForm from "../components/ContactForm.astro";
-import { getCollection } from "astro:content";
-import { getGitHubStars } from "../utils/github";
+import HeroSection from "../components/HeroSection/HeroSection.astro";
+import SectionHeader from "../components/SectionHeader/SectionHeader.astro";
+import FeaturedProject from "../components/FeaturedProject/FeaturedProject.astro";
+import ProjectCard from "../components/ProjectCard/ProjectCard.astro";
+import ContactForm from "../components/ContactForm/ContactForm.astro";
 
-// const allProjects = await getCollection("projects");
-// const projects = await Promise.all(
-//   allProjects
-//     .sort((a, b) => a.data.order - b.data.order)
-//     .map(async (project) => {
-//       if (project.data.github) {
-//         const stars = await getGitHubStars(project.data.github);
-//         return {
-//           ...project,
-//           data: {
-//             ...project.data,
-//             stars: stars,
-//           },
-//         };
-//       }
-//       return project;
-//     }),
-// );
+// const allProjects = [
+//   {
+//     data: {
+//       title: "HyPrism",
+//       description: "Multiplatform Hytale launcher written in C#. Handles mod lifecycle management, version switching, and automated updates across Windows, macOS, and Linux.",
+//       tech: ["C#"],
+//       github: "https://github.com/HyPrismTeam/Hyprism",
+//       live: "https://hyprism.vercel.app",
+//       stars: 0,
+//       order: 0,
+//     }
+//   },
+//   {
+//     data: {
+//       title: "Needlelight",
+//       description: "Rewrite of the Lumafly mod assistant. Faster startup, reduced memory footprint, and native cross platform tooling built with C# and Python.",
+//       tech: ["C#", "Python"],
+//       github: "https://github.com/iamnow11/Needlelight",
+//       live: "",
+//       stars: 0,
+//       order: 1,
+//     }
+//   },
+//   {
+//     data: {
+//       title: "CyberQuestJR",
+//       description: "Cybersecurity education platform with interactive games and quizzes. React frontend, FastAPI backend. Placed 4th globally at Student HackPad.",
+//       tech: ["React", "FastAPI", "TypeScript"],
+//       github: "https://github.com/iamnow11/CyberQuestJR",
+//       live: "https://cyberquestjr.vercel.app/",
+//       stars: 0,
+//       order: 2,
+//     }
+//   },
+//   {
+//     data: {
+//       title: "Fun Run 2: Reborn",
+//       description: "Ground up remake of the multiplayer racing game in Solar2D. Custom physics, local multiplayer networking, character progression system, and power up engine.",
+//       tech: ["Lua", "Solar2D"],
+//       github: "https://github.com/iamnow11/FR2-Reborn",
+//       live: "",
+//       stars: 0,
+//       order: 3,
+//     }
+//   },
+//   {
+//     data: {
+//       title: "Fun Run 1: Replayed",
+//       description: "Reimplementation of Fun Run 1 in Solar2D. Rewritten game mechanics, modernized rendering pipeline, and online multiplayer support.",
+//       tech: ["Lua", "Solar2D"],
+//       github: "https://github.com/iamnow11/FR1-Replayed",
+//       live: "",
+//       stars: 0,
+//       order: 4,
+//     }
+//   },
+//   {
+//     data: {
+//       title: "KubeTimr",
+//       description: "Keyboard first, offline first speedcube timer. WCA inspection mode, seeded scramble generation, statistical analysis, and training splits.",
+//       tech: ["TypeScript", "React", "Vite"],
+//       github: "https://github.com/iamnow11/KubeTimr",
+//       live: "https://kubetimr.vercel.app",
+//       stars: 0,
+//       order: 5,
+//     }
+//   },
+//   {
+//     data: {
+//       title: "OddEven Singleplayer",
+//       description: "Terminal based odd even cricket engine with adaptive AI, rank progression, and a theme system.",
+//       tech: ["Python"],
+//       github: "https://github.com/iamnow11/OddEven-SP",
+//       live: "https://oddevensp.vercel.app",
+//       stars: 0,
+//       order: 6,
+//     }
+//   },
+//   {
+//     data: {
+//       title: "ProdTab",
+//       description: "Lightweight product tracking and journaling extension. Log ideas, track releases, and visualize trends. Published on Firefox Add-ons.",
+//       tech: ["JavaScript", "HTML", "CSS"],
+//       github: "https://github.com/iamnow11/ProdTab",
+//       live: "",
+//       stars: 0,
+//       order: 7,
+//     }
+//   },
+//   {
+//     data: {
+//       title: "AarusPlatformer",
+//       description: "Platformer engine prototype. Custom physics, tilemap rendering, and cross language build pipeline using C, TypeScript, and CMake.",
+//       tech: ["C", "TypeScript", "CMake"],
+//       github: "https://github.com/iamnow11/AarusPlatformer",
+//       live: "",
+//       stars: 0,
+//       order: 8,
+//     }
+//   },
+//   {
+//     data: {
+//       title: "Typeconomy",
+//       description: "Typing driven economy game. Real time WPM tracking, upgrade tree, and idle automation mechanics.",
+//       tech: ["React", "Vite"],
+//       github: "https://github.com/Nathan5471/typeconomy",
+//       live: "https://typeconomy.vercel.app/",
+//       stars: 0,
+//       order: 9,
+//     }
+//   },
+// ];
 
-// const featured = projects.filter((p) => p.data.featured);
-// const other = projects.filter((p) => !p.data.featured);
-
-const featured = [
+const featuredProjects = [
   {
     data: {
       title: "Enterprise Healthcare Coding Platform",
@@ -54,8 +144,6 @@ const featured = [
     }
   }
 ];
-const other = [];
-
 const skillGroups = [
   {
     label: "Core Technologies",
@@ -79,39 +167,39 @@ const skillGroups = [
   },
 ];
 
-const highlights = [
+const competencyHighlights = [
   {
     metric: "NgRx | Redux",
-    label: "Reduced redundant API calls using NgRx caching strategy.",
+    description: "Reduced redundant API calls using NgRx caching strategy.",
   },
   {
     metric: "Performance",
-    label: "Improved application load time using lazy loading and code splitting.",
+    description: "Improved application load time using lazy loading and code splitting.",
   },
   {
     metric: "UI",
-    label: "Built reusable UI component systems across enterprise modules.",
+    description: "Built reusable UI component systems across enterprise modules.",
   },
   {
     metric: "Scale",
-    label: "Designed scalable configuration-driven architecture.",
+    description: "Designed scalable configuration-driven architecture.",
   },
   {
     metric: "CI/CD",
-    label: "Contributed to CI/CD pipeline optimization using Jenkins.",
+    description: "Contributed to CI/CD pipeline optimization using Jenkins.",
   },
   {
     metric: "Stability",
-    label: "Delivered optimized and stable modules across enterprise systems.",
+    description: "Delivered optimized and stable modules across enterprise systems.",
   },
 ];
 
-const building = [
+const workExperience = [
   {
-    name: "AGS Health",
+    company: "AGS Health",
     duration: "Apr 2025 – Present",
     role: "Frontend Engineer",
-    bullets: [
+    responsibilities: [
       "Developed scalable Angular (v16–19) and React modules for enterprise healthcare platforms.",
       "Implemented NgRx-based state management to reduce redundant API calls.",
       "Built reusable component architecture.",
@@ -122,10 +210,10 @@ const building = [
     ]
   },
   {
-    name: "Tata Consultancy Services",
+    company: "Tata Consultancy Services",
     duration: "Jun 2021 – Apr 2025",
     role: "Frontend Developer",
-    bullets: [
+    responsibilities: [
       "Developed dynamic configuration-driven modules.",
       "Built modular UI systems following enterprise standards.",
       "Optimized performance and stability.",
@@ -137,7 +225,7 @@ const building = [
 ---
 
 <Layout>
-  <Header />
+  <HeroSection />
 
   <main>
     <section id="about" class="section fade-in">
@@ -159,10 +247,10 @@ const building = [
         <SectionHeader title="highlights" number="02" />
         <div class="highlights-grid">
           {
-            highlights.map((h, i) => (
-              <div class="highlight-card slide-up" style={`animation-delay: ${i * 0.1}s`}>
-                <span class="highlight-metric">{h.metric}</span>
-                <span class="highlight-label">{h.label}</span>
+            competencyHighlights.map((highlight, index) => (
+              <div class="highlight-card slide-up" style={`animation-delay: ${index * 0.1}s`}>
+                <span class="highlight-metric">{highlight.metric}</span>
+                <span class="highlight-label">{highlight.description}</span>
               </div>
             ))
           }
@@ -175,8 +263,8 @@ const building = [
         <SectionHeader title="featured work" number="03" />
         <div class="flagship-grid">
           {
-            featured.map((project, index) => (
-              <FlagshipProject
+            featuredProjects.map((project, index) => (
+              <FeaturedProject
                 title={project.data.title}
                 description={project.data.description}
                 tech={project.data.tech}
@@ -189,10 +277,10 @@ const building = [
           }
         </div>
 
-        <!-- <h3 class="subsection-title">All Projects</h3>
+        <h3 class="subsection-title">All Projects</h3>
         <div class="projects-grid">
-          {
-            other.map((project, index) => (
+          <!-- {
+            allProjects.map((project, index) => (
               <ProjectCard
                 title={project.data.title}
                 description={project.data.description}
@@ -203,8 +291,8 @@ const building = [
                 index={index}
               />
             ))
-          }
-        </div> -->
+          } -->
+        </div>
       </div>
     </section>
 
@@ -213,8 +301,8 @@ const building = [
         <SectionHeader title="tech stack" number="04" />
         <div class="skills-grouped">
           {
-            skillGroups.map((group, gi) => (
-              <div class="skill-group slide-up" style={`animation-delay: ${gi * 0.1}s`}>
+            skillGroups.map((group, groupIndex) => (
+              <div class="skill-group slide-up" style={`animation-delay: ${groupIndex * 0.1}s`}>
                 <span class="skill-group-label">{group.label}</span>
                 <div class="skill-group-items">
                   {group.items.map((item) => (
@@ -233,16 +321,16 @@ const building = [
         <SectionHeader title="experience" number="05" />
         <div class="building-list">
           {
-            building.map((item, i) => (
-              <div class="building-item slide-up" style={`animation-delay: ${i * 0.1}s`}>
+            workExperience.map((experience, index) => (
+              <div class="building-item slide-up" style={`animation-delay: ${index * 0.1}s`}>
                 <div class="building-header">
-                  <span class="building-name">{item.name}</span>
-                  <span class="building-duration">{item.duration}</span>
+                  <span class="building-name">{experience.company}</span>
+                  <span class="building-duration">{experience.duration}</span>
                 </div>
-                <div class="building-role">{item.role}</div>
+                <div class="building-role">{experience.role}</div>
                 <ul class="building-bullets">
-                  {item.bullets.map((bullet) => (
-                    <li>{bullet}</li>
+                  {experience.responsibilities.map((responsibility) => (
+                    <li>{responsibility}</li>
                   ))}
                 </ul>
               </div>
@@ -259,304 +347,4 @@ const building = [
       </div>
     </section>
   </main>
-
-  <script is:inline>
-    /*
-    if (typeof window !== "undefined") {
-      const CACHE_TTL = 1000 * 60 * 15;
-      const STORAGE_KEY = "project-star-cache";
-
-      const readCache = () => {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          return raw ? JSON.parse(raw) : {};
-        } catch {
-          return {};
-        }
-      };
-
-      const writeCache = (cache) => {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(cache));
-        } catch {}
-      };
-
-      const parseRepo = (githubUrl) => {
-        try {
-          const { pathname } = new URL(githubUrl);
-          const parts = pathname.split("/").filter(Boolean);
-          if (parts.length < 2) return null;
-          return { owner: parts[0], repo: parts[1] };
-        } catch {
-          return null;
-        }
-      };
-
-      const updateBadge = (badge, stars) => {
-        const countEl = badge.querySelector(".star-count");
-        badge.dataset.stars = String(stars);
-        badge.setAttribute("aria-label", `${stars} stars`);
-        if (countEl) countEl.textContent = String(stars);
-      };
-
-      const hydrateStars = async () => {
-        const badges = Array.from(
-          document.querySelectorAll('[data-role="star-badge"][data-github]'),
-        );
-
-        if (!badges.length) return;
-
-        const cache = readCache();
-        const now = Date.now();
-
-        for (const badge of badges) {
-          const github = badge.getAttribute("data-github");
-          if (!github) continue;
-
-          const cached = cache[github];
-          if (cached && now - cached.ts < CACHE_TTL) {
-            updateBadge(badge, cached.stars);
-            continue;
-          }
-
-          const parsed = parseRepo(github);
-          if (!parsed) continue;
-
-          try {
-            const res = await fetch(
-              `https://api.github.com/repos/${parsed.owner}/${parsed.repo}`,
-            );
-            if (!res.ok) continue;
-            const data = await res.json();
-            const stars = Number(data?.stargazers_count ?? 0);
-            if (Number.isFinite(stars)) {
-              updateBadge(badge, stars);
-              cache[github] = { stars, ts: now };
-              writeCache(cache);
-            }
-          } catch {}
-        }
-      };
-
-      if (document.readyState === "complete") {
-        hydrateStars();
-      } else {
-        window.addEventListener("load", hydrateStars, { once: true });
-      }
-    }
-    */
-  </script>
 </Layout>
-
-<style>
-  .section {
-    position: relative;
-    padding: var(--section-padding);
-  }
-
-  /* About */
-  .about-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .about-content p {
-    font-size: var(--font-size-base);
-    line-height: 1.75;
-    color: var(--secondary-text);
-    max-width: 36rem;
-  }
-
-  /* Highlights */
-  .highlights-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    margin-top: 1.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--rounded-corner);
-    overflow: hidden;
-    background: var(--border-color);
-  }
-
-  .highlight-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1.5rem;
-    background: var(--bg-color);
-  }
-
-  .highlight-metric {
-    font-size: var(--font-size-x-large);
-    font-weight: 600;
-    color: var(--primary-text);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-
-  .highlight-label {
-    font-size: var(--font-size-xs);
-    color: var(--tertiary-text);
-    line-height: 1.4;
-    font-weight: 400;
-  }
-
-  /* Projects */
-  .flagship-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
-    margin-bottom: 3rem;
-  }
-
-  .subsection-title {
-    font-size: var(--font-size-small);
-    font-weight: 500;
-    color: var(--tertiary-text);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    font-family: var(--font-mono);
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  /* Skills */
-  .skills-grouped {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    margin-top: 1.5rem;
-  }
-
-  .skill-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .skill-group-label {
-    font-family: var(--font-mono);
-    font-size: var(--font-size-xs);
-    font-weight: 500;
-    color: var(--tertiary-text);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .skill-group-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.375rem;
-  }
-
-  .skill-tag {
-    font-size: var(--font-size-small);
-    font-weight: 500;
-    color: var(--secondary-text);
-    background: transparent;
-    padding: 0.3rem 0.6rem;
-    border-radius: 999px;
-    border: 1px solid var(--border-color);
-    transition: var(--transition-smooth);
-  }
-
-  .skill-tag:hover {
-    color: var(--primary-text);
-    border-color: var(--primary-text);
-    transform: translateY(-1px);
-  }
-
-  /* Experience List */
-  .building-list {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    margin-top: 2rem;
-  }
-
-  .building-item {
-    display: flex;
-    flex-direction: column;
-    /* gap: 0.5rem; */
-    padding-bottom: 2rem;
-    /* border-bottom: 1px solid var(--border-color); */
-  }
-
-  .building-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .building-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-
-  .building-name {
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    color: var(--primary-text);
-    letter-spacing: -0.01em;
-  }
-
-  .building-duration {
-    font-family: var(--font-mono);
-    font-size: var(--font-size-xs);
-    color: var(--tertiary-text);
-  }
-
-  .building-role {
-    font-size: var(--font-size-small);
-    color: var(--accent-color);
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-  }
-
-  .building-bullets {
-    margin: 0;
-    padding-left: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .building-bullets li {
-    font-size: var(--font-size-small);
-    color: var(--secondary-text);
-    line-height: 1.6;
-    padding-left: 0.2rem;
-  }
-
-  @media (max-width: 768px) {
-    .highlights-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .skills-grouped {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .about-content p {
-      font-size: var(--font-size-small);
-    }
-
-    .flagship-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .building-header {
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-  }
-</style>

@@ -1,0 +1,95 @@
+---
+import "./ContactForm.css";
+
+const SERVICE_ID = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID ?? null;
+const PUBLIC_KEY = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY ?? null;
+const OWNER_TEMPLATE_ID =
+  import.meta.env.PUBLIC_EMAILJS_OWNER_TEMPLATE_ID ?? null;
+const USER_TEMPLATE_ID =
+  import.meta.env.PUBLIC_EMAILJS_USER_TEMPLATE_ID ?? null;
+const TO_EMAIL =
+  import.meta.env.PUBLIC_EMAILJS_TO_EMAIL ?? "iamshah119@gmail.com";
+---
+
+<div class="contact-section">
+  <div class="contact-info">
+    <p>
+      Open to collaboration, consulting, and interesting engineering problems.
+      Reach out directly or use the form below.
+    </p>
+    <div class="contact-links">
+      <a
+        href="mailto:iamshah119@gmail.com"
+        class="contact-link"
+        rel="noopener noreferrer"
+      >
+        <span>iamshah119@gmail.com</span>
+      </a>
+      <a
+        href="https://github.com/iamnow11"
+        class="contact-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>github.com/iamnow11</span>
+      </a>
+      <a
+        href="https://www.linkedin.com/in/iamnow/"
+        class="contact-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>linkedin.com/in/iamnow/</span>
+      </a>
+    </div>
+  </div>
+
+  <form class="contact-form" id="contactForm">
+    <div class="form-group">
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Your name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Your email"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <textarea
+        id="message"
+        name="message"
+        placeholder="Your message"
+        rows="5"
+        required></textarea>
+    </div>
+    <button type="submit" class="submit-button">
+      <span class="button-text">send message</span>
+    </button>
+  </form>
+</div>
+
+<div id="notification" class="notification" style="display: none;"></div>
+
+<div
+  id="contactConfig"
+  data-service-id={SERVICE_ID}
+  data-public-key={PUBLIC_KEY}
+  data-owner-template-id={OWNER_TEMPLATE_ID}
+  data-user-template-id={USER_TEMPLATE_ID}
+  data-to-email={TO_EMAIL}
+  style="display:none;"
+>
+</div>
+
+<script>
+  import "./ContactForm.ts";
+</script>

@@ -1,0 +1,66 @@
+---
+import './FeaturedProject.css';
+
+interface Props {
+  title: string;
+  description: string;
+  tech: string[];
+  github?: string;
+  live?: string;
+  stars?: number;
+  index: number;
+}
+
+const { title, description, tech, github, live, stars, index } = Astro.props;
+---
+
+<div class="flagship slide-up" style={`animation-delay: ${index * 0.15}s`}>
+  <div class="flagship-header">
+    <span class="flagship-label">Featured</span>
+    {
+      github && (
+        <span
+          class="star-badge"
+          data-github={github}
+          data-stars={stars ?? 0}
+          data-role="star-badge"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 .587l3.668 7.431L23.4 9.75l-5.7 5.556L19.335 24 12 19.897 4.665 24l1.634-8.694L.6 9.75l7.732-1.732z" />
+          </svg>
+          <span class="star-count">{stars ?? 0}</span>
+        </span>
+      )
+    }
+  </div>
+
+  <h3 class="flagship-title">{title}</h3>
+  <p class="flagship-description">{description}</p>
+
+  <div class="flagship-tech">
+    {tech.map((technology) => <span class="tech-tag">{technology}</span>)}
+  </div>
+
+  <div class="flagship-links">
+    {
+      github && (
+        <a href={github} target="_blank" rel="noopener noreferrer" class="flagship-link">
+          View source
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17L17 7M17 7H7M17 7v10" />
+          </svg>
+        </a>
+      )
+    }
+    {
+      live && (
+        <a href={live} target="_blank" rel="noopener noreferrer" class="flagship-link">
+          Live
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17L17 7M17 7H7M17 7v10" />
+          </svg>
+        </a>
+      )
+    }
+  </div>
+</div>

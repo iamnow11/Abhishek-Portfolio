@@ -1,0 +1,23 @@
+---
+import './AchievementCard.css';
+
+interface Props {
+  title: string;
+  description: string;
+  index?: number;
+}
+
+const { title, description, index = 0 } = Astro.props;
+---
+
+<div
+  class="achievement-card slide-up"
+  style={`animation-delay: ${index * 0.1}s`}
+>
+  <div class="achievement-content">
+    <div class="achievement-header">
+      <h3>{title}</h3>
+    </div>
+    <p>{description}</p>
+  </div>
+</div>

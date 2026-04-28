@@ -1,5 +1,8 @@
 /// <reference lib="es2015" />
 
+const EMAILJS_API_URL = "https://api.emailjs.com/api/v1.0/email/send";
+const NOTIFICATION_DISPLAY_DURATION_MS = 4000;
+
 export type ContactFormConfig = {
   serviceId: string | null;
   publicKey: string | null;
@@ -16,26 +19,26 @@ type EmailPayload = {
   message: string;
 };
 
-function showNotification(notification: HTMLElement | null, message: string, type: NotificationType) {
-  if (!notification) return;
+function showNotification(notificationElement: HTMLElement | null, message: string, type: NotificationType): void {
+  if (!notificationElement) return;
 
-  notification.textContent = message;
-  notification.className = `notification notification-${type}`;
-  notification.style.display = "block";
+  notificationElement.textContent = message;
+  notificationElement.className = `notification notification-${type}`;
+  notificationElement.style.display = "block";
 
   setTimeout(() => {
-    notification.style.display = "none";
-  }, 4000);
+    notificationElement.style.display = "none";
+  }, NOTIFICATION_DISPLAY_DURATION_MS);
 }
 
-function setSubmitting(form: HTMLFormElement, isSubmitting: boolean) {
-  const button = form.querySelector<HTMLButtonElement>(".submit-button");
-  const text = button?.querySelector<HTMLSpanElement>(".button-text");
-  if (!button) return;
+function setSubmitting(form: HTMLFormElement, isSubmitting: boolean): void {
+  const submitButton = form.querySelector<HTMLButtonElement>(".submit-button");
+  const buttonLabel = submitButton?.querySelector<HTMLSpanElement>(".button-text");
+  if (!submitButton) return;
 
-  button.disabled = isSubmitting;
-  if (text) {
-    text.textContent = isSubmitting ? "sending..." : "send message";
+  submitButton.disabled = isSubmitting;
+  if (buttonLabel) {
+    buttonLabel.textContent = isSubmitting ? "sending..." : "send message";
   }
 }
 
@@ -53,11 +56,11 @@ async function sendEmail(
     user_id: publicKey,
   };
 
-  const requests: Promise<Response>[] = [];
+  const emailRequests: Promise<Response>[] = [];
 
   if (ownerTemplateId) {
-    requests.push(
-      fetch("https://api.emailjs.com/api/v1.0/email/send", {
+    emailRequests.push(
+      fetch(EMAILJS_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -77,8 +80,8 @@ async function sendEmail(
   }
 
   if (userTemplateId) {
-    requests.push(
-      fetch("https://api.emailjs.com/api/v1.0/email/send", {
+    emailRequests.push(
+      fetch(EMAILJS_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -96,23 +99,23 @@ async function sendEmail(
     );
   }
 
-  if (!requests.length) {
+  if (!emailRequests.length) {
     throw new Error("No EmailJS templates configured.");
   }
 
-  const responses = await Promise.all(requests);
-  const failure = responses.find((response) => !response.ok);
-  if (failure) {
-    const errorText = await failure.text();
+  const responses = await Promise.all(emailRequests);
+  const failedResponse = responses.find((response) => !response.ok);
+  if (failedResponse) {
+    const errorText = await failedResponse.text();
     throw new Error(errorText || "EmailJS send failed");
   }
 }
 
 export function initContactForm(
   form: HTMLFormElement | null,
-  notification: HTMLElement | null,
+  notificationElement: HTMLElement | null,
   config: ContactFormConfig
-) {
+): void {
   if (!form) return;
 
   form.addEventListener("submit", async (event) => {
@@ -120,7 +123,7 @@ export function initContactForm(
 
     if (!config.serviceId || !config.publicKey) {
       showNotification(
-        notification,
+        notificationElement,
         "Email service is not configured yet. Please add PUBLIC_EMAILJS_SERVICE_ID and PUBLIC_EMAILJS_PUBLIC_KEY.",
         "error"
       );
@@ -135,19 +138,19 @@ export function initContactForm(
     const message = (formData.get("message")?.toString() || "").trim();
 
     if (!name || !email || !message) {
-      showNotification(notification, "Please fill in all fields before sending.", "error");
+      showNotification(notificationElement, "Please fill in all fields before sending.", "error");
       setSubmitting(form, false);
       return;
     }
 
     try {
       await sendEmail({ name, email, message }, config);
-      showNotification(notification, "Message sent successfully! I'll get back to you soon.", "success");
+      showNotification(notificationElement, "Message sent successfully! I'll get back to you soon.", "success");
       form.reset();
     } catch (error) {
       console.error("Email send failed", error);
       showNotification(
-        notification,
+        notificationElement,
         "Could not send your message. Please try again or email me directly.",
         "error"
       );

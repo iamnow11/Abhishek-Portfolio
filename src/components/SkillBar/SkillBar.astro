@@ -1,0 +1,21 @@
+---
+import './SkillBar.css';
+
+interface Props {
+  name: string;
+  progress: number;
+}
+
+const { name, progress } = Astro.props;
+---
+
+<div class="skill-item">
+  <span class="skill-name">{name}</span>
+  <div class="skill-bar">
+    <div class="skill-progress" data-progress={progress} style={`width: ${progress}%`}></div>
+  </div>
+</div>
+
+<script>
+  import "./SkillBar.ts";
+</script>

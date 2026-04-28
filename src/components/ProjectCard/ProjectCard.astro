@@ -1,0 +1,78 @@
+---
+import './ProjectCard.css';
+
+interface Props {
+  title: string;
+  description: string;
+  tech: string[];
+  github?: string;
+  live?: string;
+  stars?: number;
+  index: number;
+}
+
+const { title, description, tech, github, live, stars, index } = Astro.props;
+---
+
+<div class="project slide-up" style={`animation-delay: ${index * 0.08}s`}>
+  <div class="project-content">
+    <div class="project-info">
+      <div class="project-meta">
+        <span class="project-tech">{tech.join(" / ")}</span>
+      </div>
+
+      <h3>{title}</h3>
+
+      <p class="project-description">{description}</p>
+
+      <div class="project-links">
+        {
+          github && (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-link"
+            >
+              source
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+          )
+        }
+        {
+          live && (
+            <a
+              href={live}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-link"
+            >
+              live
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+          )
+        }
+        {
+          github && (
+            <span
+              class="star-badge"
+              aria-label={`${stars ?? 0} stars`}
+              data-github={github}
+              data-stars={stars ?? 0}
+              data-role="star-badge"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 .587l3.668 7.431L23.4 9.75l-5.7 5.556L19.335 24 12 19.897 4.665 24l1.634-8.694L.6 9.75l7.732-1.732z" />
+              </svg>
+              <span class="star-count">{stars ?? 0}</span>
+            </span>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</div>
