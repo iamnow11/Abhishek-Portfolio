@@ -245,15 +245,17 @@ const workExperience = [
     <section id="highlights" class="section fade-in">
       <div class="container">
         <SectionHeader title="highlights" number="02" />
-        <div class="highlights-grid">
-          {
-            competencyHighlights.map((highlight, index) => (
-              <div class="highlight-card slide-up" style={`animation-delay: ${index * 0.1}s`}>
-                <span class="highlight-metric">{highlight.metric}</span>
-                <span class="highlight-label">{highlight.description}</span>
-              </div>
-            ))
-          }
+        <div class="highlights-wrapper">
+          <div class="highlights-grid">
+            {
+              competencyHighlights.map((highlight, index) => (
+                <div class="highlight-card slide-up" style={`animation-delay: ${index * 0.1}s`}>
+                  <span class="highlight-metric">{highlight.metric}</span>
+                  <span class="highlight-label">{highlight.description}</span>
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
     </section>

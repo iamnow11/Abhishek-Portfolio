@@ -20,15 +20,56 @@
 }
 
 /* Highlights */
+.highlights-wrapper {
+  position: relative;
+  margin-top: 1.5rem;
+  border-radius: var(--rounded-corner);
+}
+
+.highlights-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--gradient-angle, 0deg),
+    transparent 0%,
+    transparent 25%,
+    rgba(136, 136, 136, 0.6) 40%,
+    rgba(200, 200, 200, 0.9) 50%,
+    rgba(136, 136, 136, 0.6) 60%,
+    transparent 75%,
+    transparent 100%
+  );
+  animation: gradientRotate 8s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+[data-theme='dark'] .highlights-wrapper::before {
+  background: conic-gradient(
+    from var(--gradient-angle, 0deg),
+    transparent 0%,
+    transparent 25%,
+    rgba(255, 255, 255, 0.1) 38%,
+    rgba(255, 255, 255, 0.4) 46%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.4) 54%,
+    rgba(255, 255, 255, 0.1) 62%,
+    transparent 75%,
+    transparent 100%
+  );
+}
+
 .highlights-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
-  margin-top: 1.5rem;
-  border: 1px solid var(--border-color);
   border-radius: var(--rounded-corner);
   overflow: hidden;
   background: var(--border-color);
+  position: relative;
+  z-index: 1;
 }
 
 .highlight-card {
