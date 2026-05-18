@@ -60,6 +60,9 @@
 }
 
 .hero-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   color: var(--secondary-text);
   font-size: var(--font-size-xs);
   font-weight: 500;
@@ -73,13 +76,97 @@
   transition: var(--transition-smooth);
 }
 
+.btn-icon {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex-shrink: 0;
+  transition: var(--transition-smooth);
+}
+
+/* Icon brand colors */
+.btn-cv .btn-icon { color: #a882ff; }
+.btn-linkedin .btn-icon { color: #0a66c2; }
+.btn-github .btn-icon { color: #8b949e; }
+.btn-contact .btn-icon { color: var(--secondary-text); }
+
 .hero-links a:hover {
-  background: var(--primary-text);
-  color: var(--bg-color);
-  border-color: var(--primary-text);
   transform: translateY(-1px);
   text-decoration: none;
   opacity: 1;
+}
+
+/* Download CV – Primary CTA with premium accent */
+[data-theme='dark'] .hero-links .btn-cv {
+  border-color: rgba(168, 130, 255, 0.3);
+  color: rgba(168, 130, 255, 0.9);
+}
+[data-theme='dark'] .hero-links .btn-cv:hover {
+  background: rgba(168, 130, 255, 0.12);
+  border-color: rgba(168, 130, 255, 0.5);
+  color: rgba(168, 130, 255, 1);
+}
+
+/* LinkedIn – Subtle professional blue */
+[data-theme='dark'] .hero-links .btn-linkedin {
+  border-color: rgba(70, 130, 210, 0.25);
+  color: rgba(100, 160, 230, 0.85);
+}
+[data-theme='dark'] .hero-links .btn-linkedin:hover {
+  background: rgba(70, 130, 210, 0.1);
+  border-color: rgba(70, 130, 210, 0.45);
+  color: rgba(100, 160, 230, 1);
+}
+
+/* GitHub – Graphite/charcoal elegant */
+[data-theme='dark'] .hero-links .btn-github {
+  border-color: rgba(200, 200, 210, 0.2);
+  color: rgba(200, 200, 210, 0.85);
+}
+[data-theme='dark'] .hero-links .btn-github:hover {
+  background: rgba(200, 200, 210, 0.08);
+  border-color: rgba(200, 200, 210, 0.4);
+  color: rgba(200, 200, 210, 1);
+}
+
+/* Contact – Neutral */
+[data-theme='dark'] .hero-links .btn-contact:hover {
+  background: var(--hover-bg);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--primary-text);
+}
+
+/* Light mode themed variants */
+.hero-links .btn-cv {
+  border-color: rgba(120, 70, 220, 0.3);
+  color: rgba(100, 50, 200, 0.85);
+}
+.hero-links .btn-cv:hover {
+  background: rgba(120, 70, 220, 0.08);
+  border-color: rgba(120, 70, 220, 0.5);
+  color: rgba(100, 50, 200, 1);
+}
+.hero-links .btn-linkedin {
+  border-color: rgba(10, 102, 194, 0.25);
+  color: rgba(10, 102, 194, 0.8);
+}
+.hero-links .btn-linkedin:hover {
+  background: rgba(10, 102, 194, 0.06);
+  border-color: rgba(10, 102, 194, 0.4);
+  color: rgba(10, 102, 194, 1);
+}
+.hero-links .btn-github {
+  border-color: rgba(36, 41, 47, 0.2);
+  color: rgba(36, 41, 47, 0.75);
+}
+.hero-links .btn-github:hover {
+  background: rgba(36, 41, 47, 0.06);
+  border-color: rgba(36, 41, 47, 0.35);
+  color: rgba(36, 41, 47, 0.95);
+}
+.hero-links .btn-contact:hover {
+  background: var(--hover-bg);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: var(--primary-text);
 }
 
 .back-to-top {
