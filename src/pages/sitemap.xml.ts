@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-const FALLBACK_SITE_URL = 'https://abhishek-dev.netlify.app/';
+const FALLBACK_SITE_URL = 'https://iamnow-dev.netlify.app/';
 
 type SitemapPage = {
   url: string;

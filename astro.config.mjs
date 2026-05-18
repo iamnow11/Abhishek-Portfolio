@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import { fileURLToPath } from 'url';
 
 export default defineConfig({
-  site: 'https://abhishek-dev.netlify.app',
+  site: 'https://iamnow-dev.netlify.app',
   base: '/',
   output: 'static',
   compressHTML: true,
